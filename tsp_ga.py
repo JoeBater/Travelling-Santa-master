@@ -23,11 +23,8 @@ class TSP1(object):
     def initCitys(self):
         self.citys = []
         self.dis = 0
-
         cluster_fu = cluster_position("./info/cluster_further.txt")
-
-        path_f, path_position_f, d = generate_path(cluster_fu)
-        print(d)
+        self.clu_position = cluster_fu
 
         for i in range(0,len(cluster_fu)):
             self.citys.append(tuple(cluster_fu[i]))
@@ -124,10 +121,15 @@ class TSP1(object):
             n -= 1
         print('当前最优路线:')
         string = ''
+        ppp = []
         for index in self.ga.best.gene:
             string += str(index) + '->'
+            ppp.append(self.clu_position[index])
         print(string[0:len(string)-2])
-
+        plot_path(ppp)
+        plot_path(ppp)
+        path_f, path_position_f, d = generate_path(self.clu_position)
+        plot_path(path_position_f)
         '''画图函数'''
         #plt.plot(generate, distance_list)
         #plt.xlabel('generation')
@@ -143,6 +145,7 @@ def main():
 
     tsp = TSP1()
     tsp.run(1000)
+
     print("贪心:"+str(tsp.dis))
 
 if __name__ == '__main__':

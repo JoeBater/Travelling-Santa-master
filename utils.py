@@ -28,13 +28,12 @@ def generate_path(cluster):
 
 
 def plot_path(path_position, flag=1):
-    #plt.xlim(0, 5000)
-    #plt.ylim(0, 3000)
+
     for i in range(len(path_position)):
         if i == 0:
-            plt.scatter(path_position[i][0], path_position[i][1], s=1400)
+            plt.scatter(path_position[i][0], path_position[i][1], s=100)
         else:
-            plt.scatter(path_position[i][0], path_position[i][1], s=300)
+            plt.scatter(path_position[i][0], path_position[i][1], s=100)
 
     # paint line
     for i in range(len(path_position)):
