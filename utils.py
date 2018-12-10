@@ -1,7 +1,9 @@
 import re
 from TSP import *
 import matplotlib.pyplot as plt
+
 plt.figure(figsize=(50, 50))
+
 
 def cluster_position(clusterfile):
     pattern = re.compile(r'(\d*\.\d*)')
@@ -17,18 +19,17 @@ def cluster_position(clusterfile):
     return cluster
 
 
-def generate_path(cluster):
+def generate_path(cluster, algorithm='greedy'):
     t = TSP()
     t.cluster = cluster
-    path, diss = t.cal_cluster_path()
+    path, diss = t.cal_cluster_path(algorithm=algorithm)
     path_position = []
     for i in range(len(cluster)):
-        path_position.append(t.cluster[path[i]])
+        path_position.append(cluster[path[i]])
     return path, path_position, diss
 
 
 def plot_path(path_position, flag=1):
-
     for i in range(len(path_position)):
         if i == 0:
             plt.scatter(path_position[i][0], path_position[i][1], s=100)
@@ -40,6 +41,5 @@ def plot_path(path_position, flag=1):
         p1 = path_position[i % len(path_position)]
         p2 = path_position[(i + 1) % len(path_position)]
         plt.plot([p1[0], p2[0]], [p1[1], p2[1]], c='b')
-    if flag==1:
+    if flag == 1:
         plt.show()
-

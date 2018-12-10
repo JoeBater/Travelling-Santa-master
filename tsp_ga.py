@@ -1,11 +1,9 @@
-import random
-import math
 from GA import GA
-import matplotlib.pyplot as plt
 from utils import *
 
+
 class TSP1(object):
-    def __init__(self, aLifeCount=1000, ):
+    def __init__(self, aLifeCount=100, ):
         self.initCitys()
         x = []
         for i in range(0, len(self.citys)):
@@ -20,13 +18,14 @@ class TSP1(object):
                      aMatchFun=self.matchFun())
         self.ga.initOrder = path_f
         self.ga.initPopulation()
+
     def initCitys(self):
         self.citys = []
         self.dis = 0
         cluster_fu = cluster_position("./info/cluster_further.txt")
         self.clu_position = cluster_fu
 
-        for i in range(0,len(cluster_fu)):
+        for i in range(0, len(cluster_fu)):
             self.citys.append(tuple(cluster_fu[i]))
 
         """
@@ -92,19 +91,7 @@ class TSP1(object):
         for i in range(-1, len(self.citys) - 1):  # 取到-1，因为要形成一个回路形成一个哈密顿图 #
             index1, index2 = order[i], order[i + 1]
             city1, city2 = self.citys[index1], self.citys[index2]
-            distance += math.sqrt((city1[0] - city2[0]) ** 2 + (city1[1] - city2[1]) ** 2)   # 欧式距离 #
-
-            """
-            R = 6371.004
-            Pi = math.pi
-            LatA = city1[1]
-            LatB = city2[1]
-            MLonA = city1[0]
-            MLonB = city2[0]
-            C = math.sin(LatA*Pi / 180) * math.sin(LatB * Pi / 180) + math.cos(LatA * Pi / 180) * math.cos(LatB * Pi / 180) * math.cos((MLonA - MLonB) * Pi / 180)
-            D = R * math.acos(C) * Pi / 100
-            distance += D
-            """
+            distance += math.sqrt((city1[0] - city2[0]) ** 2 + (city1[1] - city2[1]) ** 2)  # 欧式距离 #
         return distance
 
     def matchFun(self):
@@ -125,28 +112,19 @@ class TSP1(object):
         for index in self.ga.best.gene:
             string += str(index) + '->'
             ppp.append(self.clu_position[index])
-        print(string[0:len(string)-2])
+        print(string[0:len(string) - 2])
         plot_path(ppp)
         plot_path(ppp)
         path_f, path_position_f, d = generate_path(self.clu_position)
         plot_path(path_position_f)
-        '''画图函数'''
-        #plt.plot(generate, distance_list)
-        #plt.xlabel('generation')
-        #plt.ylabel('distance')
-        #plt.title('generation--distance')
-        #plt.show()
-
-from sklearn.cluster import KMeans
-
 
 
 def main():
-
     tsp = TSP1()
     tsp.run(1000)
 
-    print("贪心:"+str(tsp.dis))
+    print("贪心:" + str(tsp.dis))
+
 
 if __name__ == '__main__':
     main()
