@@ -19,9 +19,10 @@ def cluster_position(clusterfile):
     return cluster
 
 
-def generate_path(cluster, algorithm='greedy'):
+def generate_path(cluster, algorithm='greedy', it=100):
     t = TSP()
     t.cluster = cluster
+    t.it = it
     path, diss = t.cal_cluster_path(algorithm=algorithm)
     path_position = []
     for i in range(len(cluster)):

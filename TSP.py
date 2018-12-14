@@ -6,7 +6,7 @@ class TSP:
     cluster = None  # format_example with three clusters [[1,2],[2,3],[3,4]]
     path = [0]  # start at cluster_zero
     distance = 0
-
+    it = 100
     def Greedy_Algorithm(self):
         # cal the number of cluster
         cluster_number = len(self.cluster)
@@ -79,7 +79,7 @@ class TSP:
         self.path = ppp
         # print("GA")
 
-    def cal_cluster_path(self, algorithm='greedy', it=100):
+    def cal_cluster_path(self, algorithm='greedy'):
         if algorithm == 'greedy':
             self.distance = 0
             n = self.search_min()
@@ -93,7 +93,7 @@ class TSP:
             self.path = [n]
             self.Greedy_Algorithm()
 
-            self.GA_Algorithm(it)
+            self.GA_Algorithm(self.it)
             return self.path, self.distance
 
     def cal_dis(self, p1, p2):
