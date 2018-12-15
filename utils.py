@@ -1,10 +1,21 @@
 import re
 from TSP import *
 import matplotlib.pyplot as plt
+import pandas as pd
 
-plt.figure(figsize=(50, 50))
+
+# parse data from csv
+def cluster_position_csv(clusterfile):
+    cluster = []
+    df = pd.read_csv("./dataset/cities.csv")
+    x = df["X"]
+    y = df["Y"]
+    for i in range(len(x)):
+        cluster.append([x[i], y[i]])
+    return cluster
 
 
+# parse data from custom txt
 def cluster_position(clusterfile):
     pattern = re.compile(r'(\d*\.\d*)')
     cluster = []
@@ -19,10 +30,11 @@ def cluster_position(clusterfile):
     return cluster
 
 
-def generate_path(cluster, algorithm='greedy', it=100):
+def generate_path(cluster, algorithm='greedy', it=100, lifeCount=20):
     t = TSP()
     t.cluster = cluster
     t.it = it
+    t.lifeCount = lifeCount
     path, diss = t.cal_cluster_path(algorithm=algorithm)
     path_position = []
     for i in range(len(cluster)):
@@ -30,17 +42,18 @@ def generate_path(cluster, algorithm='greedy', it=100):
     return path, path_position, diss
 
 
-def plot_path(path_position, flag=1):
+def plot_path(path_position, line=False, size=10, flag=1):
+    scaX = []
+    scaY = []
     for i in range(len(path_position)):
-        if i == 0:
-            plt.scatter(path_position[i][0], path_position[i][1], s=100)
-        else:
-            plt.scatter(path_position[i][0], path_position[i][1], s=100)
-
-    # paint line
-    for i in range(len(path_position)):
-        p1 = path_position[i % len(path_position)]
-        p2 = path_position[(i + 1) % len(path_position)]
-        plt.plot([p1[0], p2[0]], [p1[1], p2[1]], c='b')
+        scaX.append(path_position[i][0])
+        scaY.append(path_position[i][1])
+    plt.scatter(scaX, scaY, s=size)
+    if line:
+        # paint line
+        for i in range(len(path_position)):
+            p1 = path_position[i % len(path_position)]
+            p2 = path_position[(i + 1) % len(path_position)]
+            plt.plot([p1[0], p2[0]], [p1[1], p2[1]], c='b')
     if flag == 1:
         plt.show()

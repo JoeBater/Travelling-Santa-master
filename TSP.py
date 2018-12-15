@@ -7,6 +7,7 @@ class TSP:
     path = [0]  # start at cluster_zero
     distance = 0
     it = 100
+    lifeCount = 20
     def Greedy_Algorithm(self):
         # cal the number of cluster
         cluster_number = len(self.cluster)
@@ -45,8 +46,7 @@ class TSP:
             num_city = num_city + 1
 
     def GA_Algorithm(self, n=0):
-        self.lifeCount = 100
-
+        print(self.lifeCount)
         citys = []
         for i in range(0, len(self.cluster)):
             citys.append(tuple(self.cluster[i]))
