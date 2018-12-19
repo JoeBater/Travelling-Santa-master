@@ -38,7 +38,7 @@ for i in range(len(map2[0])):
 
 # cal 2-cluster path
 cluster2 = cluster_position("./info/cluster_further.txt")
-p1, p2, p3 = generate_path(cluster2, 'GA', it_time, 2 * len(cluster2))
+p1, p2, p3 = generate_path(cluster2, 'GA', 20000, 2 * len(cluster2))
 cluster2_path = p1
 
 # sort by cluster2_path
@@ -80,6 +80,7 @@ clusterBy2000S = []
 for i in range(length_cluster1):
     clusterBy2000S.append(clusterBy2000[final_cluster_path[i]])
 
+
 clusterBy2000S_Position = [[] for i in range(length_cluster1)]
 for i in range(length_cluster1):
     for j in range(len(clusterBy2000S[i])):
@@ -91,7 +92,6 @@ for i in range(length_cluster1):
     for j in range(len(clusterBy2000S[i])):
         c.append(clusterBy2000S[i][p1[j]])
     clusterBy2000S[i] = c
-
 
 with open("./info/200000path.txt", 'w') as f:
     for i in range(len(clusterBy2000S)):
