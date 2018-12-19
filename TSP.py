@@ -66,7 +66,8 @@ class TSP:
             ga.next()
             distance = self.distanceTotal(ga.best.gene)
             distance_list.append(distance)
-            print(("第%d代 : 当前最小距离%f") % (ga.generation, distance))
+            if n%5000 == 0:
+                print(("第%d代 : 当前最小距离%f") % (ga.generation, distance))
             n -= 1
         self.distance = distance
         print('当前最优路线:')
