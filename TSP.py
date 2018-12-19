@@ -8,6 +8,7 @@ class TSP:
     distance = 0
     it = 100
     lifeCount = 20
+
     def Greedy_Algorithm(self):
         # cal the number of cluster
         cluster_number = len(self.cluster)
@@ -62,12 +63,14 @@ class TSP:
 
         distance_list = []
         generate = [index for index in range(1, n + 1)]
+        gengjia_time = 0
         while n > 0:
             ga.next()
             distance = self.distanceTotal(ga.best.gene)
             distance_list.append(distance)
-            if n%5000 == 0:
+            if gengjia_time % 5000 == 0:
                 print(("第%d代 : 当前最小距离%f") % (ga.generation, distance))
+            gengjia_time = gengjia_time + 1
             n -= 1
         self.distance = distance
         print('当前最优路线:')

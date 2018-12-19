@@ -2,7 +2,7 @@ from utils import *
 
 length_cluster1 = 2000
 length_cluster2 = 20
-it_time = 30000
+it_time = 30002
 
 nodePosition = cluster_position_csv("./dataset/cities.csv")
 
